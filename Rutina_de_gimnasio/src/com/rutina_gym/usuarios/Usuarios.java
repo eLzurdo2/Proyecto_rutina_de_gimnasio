@@ -18,5 +18,5 @@ public class Usuarios {
             public String getIdUsuario() {
                 return IdUsuario;
             }
-    }
+}
 

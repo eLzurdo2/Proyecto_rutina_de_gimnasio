@@ -6,6 +6,16 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+       GestorUsuarios gestorUsuarios = new GestorUsuarios();
+       Usuarios usuarios1 = new Usuarios("juan", "001");
+       gestorUsuarios.agregarUsuario(usuarios1);
+        System.out.println("Usuarios en el gym");
+        for (Usuarios usuario : gestorUsuarios.obtenerUsuarios()){
+            System.out.println((usuario.getNombre() + " Id " + usuario.getIdUsuario()));
+        }
+
+
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Ingrese su nombre");
         String nombre = scanner.nextLine();
