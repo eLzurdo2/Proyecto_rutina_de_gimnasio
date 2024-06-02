@@ -1,34 +1,79 @@
-package com.rutina_gym;
-import com.rutina_gym.usuarios.Usuarios;
-import com.rutina_gym.usuarios.GestorUsuarios;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-
+import com.rutina_gym.usuarios.Usuario;
+import java.io.*;
 
 public class Main {
+    public static List<Usuario> usuarios = new ArrayList<>();
+
+
     public static void main(String[] args) {
-       GestorUsuarios gestorUsuarios = new GestorUsuarios();
-       Usuarios usuarios1 = new Usuarios("juan", "001");
-       gestorUsuarios.agregarUsuario(usuarios1);
-        System.out.println("Usuarios en el gym");
-        for (Usuarios usuario : gestorUsuarios.obtenerUsuarios()){
-            System.out.println((usuario.getNombre() + " Id " + usuario.getIdUsuario()));
-        }
-
-
-
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Ingrese su nombre");
+        String filename = "usuarios.ser";
+
+        while (true) {
+            System.out.println("Seleccione una opción:");
+            System.out.println("1. Registrar usuario");
+            System.out.println("2. Guardar usuario");
+            System.out.println("3. Ver usuarios registrados");
+            System.out.println("4. Salir");
+            int opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    registrarUsuario(scanner);
+                    break;
+                case 2:
+                    serealizeUsuarios(usuarios, filename);
+                    break;
+                case 3:
+                    List<Usuario> existingUsuarios = deserealizeUsuarios(filename);
+                    if (existingUsuarios != null) {
+                        for (Usuario usuario : existingUsuarios) {
+                            System.out.println("Usuario registrados:\n" + usuario);
+                        }
+                    } else {
+                        System.out.println("No se pudo deserializar la lista de usuarios. Verifique que el archivo existe.");
+
+                    }
+                    break;
+                case 4:
+                    System.out.println("Saliendo del programa...");
+                    return;
+
+                default:
+                    System.out.println("Opción no válida. Intente de nuevo.");
+
+            }
+        }
+    }
+
+    public static void registrarUsuario(Scanner scanner) {
+        System.out.println("Ingrese su nombre:");
         String nombre = scanner.nextLine();
-        System.out.println("Ingrese su Id de usuario");
-        String idUsuario = scanner.nextLine();
+
+        System.out.println("Ingrese su cédula:");
+        String cedula = scanner.nextLine();
 
         System.out.println("Ingrese su edad:");
         int edad = scanner.nextInt();
         scanner.nextLine();
 
+        Usuario usuario = new Usuario(nombre, cedula, edad);
+        usuarios.add(usuario);
+
+        System.out.println("Usuario registrado");
+
+        RutinasDeEjercicio(edad, scanner);
+    }
+
+
+    public static void RutinasDeEjercicio(int edad, Scanner scanner) {
         if (edad >= 65) {
             System.out.println("Ingrese el día de la semana:");
-            String dia = scanner.nextLine().trim().toLowerCase();
+            String dia = scanner.nextLine().toLowerCase();
 
             switch (dia) {
                 case "lunes":
@@ -144,8 +189,27 @@ public class Main {
         } else {
             System.out.println("Error. Las rutinas del gimnasio estan habilitadas para personas mayores de 12 años.");
         }
-
-        scanner.close();
-
     }
+    private static void serealizeUsuarios(List<Usuario> usuarios, String filename) {
+        try (FileOutputStream fileOut = new FileOutputStream(filename);
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(usuarios);
+            System.out.println("Datos serializados en : " + filename);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static List<Usuario> deserealizeUsuarios(String filename) {
+        List<Usuario> userList = null;
+        try (FileInputStream fileIn = new FileInputStream(filename);
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            userList = (List<Usuario>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
 }
+
