@@ -139,7 +139,7 @@ public class Main {
             }
         } else if (edad >= 12) {
             System.out.println("Ingrese el día de la semana:");
-            String day = scanner.nextLine().trim().toLowerCase();
+            String day = scanner.nextLine().toLowerCase();
 
             switch (day) {
                 case "lunes":
@@ -212,4 +212,3 @@ public class Main {
     }
 
 }
-
