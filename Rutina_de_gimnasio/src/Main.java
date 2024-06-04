@@ -210,9 +210,4 @@ public class Main {
         }
         return userList;
     }
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> c0fbe1009c2960a156ccfc8b4bfadbae76f1e3f9
