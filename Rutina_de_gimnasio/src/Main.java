@@ -31,6 +31,7 @@ public class Main {
                 case 3:
                     List<Usuario> existingUsuarios = deserealizeUsuarios(filename);
                     if (existingUsuarios != null) {
+                        usuarios.addAll(existingUsuarios);
                         for (Usuario usuario : existingUsuarios) {
                             System.out.println("Usuario registrados:\n" + usuario);
                         }
