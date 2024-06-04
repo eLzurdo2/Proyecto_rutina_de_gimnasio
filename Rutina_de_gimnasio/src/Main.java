@@ -1,19 +1,11 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-<<<<<<< HEAD
-import com.rutina_gym.usuarios.Usuarios;
-import java.io.*;
-
-public class Main {
-    public static List<Usuarios> usuarios = new ArrayList<>();
-=======
 import com.rutina_gym.usuarios.Usuario;
 import java.io.*;
 
 public class Main {
     public static List<Usuario> usuarios = new ArrayList<>();
->>>>>>> 98a28316255e1ea3d921bb76fc0c6bf423fc8062
 
 
     public static void main(String[] args) {
@@ -37,15 +29,9 @@ public class Main {
                     serealizeUsuarios(usuarios, filename);
                     break;
                 case 3:
-<<<<<<< HEAD
-                    List<Usuarios> existingUsuarios = deserealizeUsuarios(filename);
-                    if (existingUsuarios != null) {
-                        for (Usuarios usuario : existingUsuarios) {
-=======
                     List<Usuario> existingUsuarios = deserealizeUsuarios(filename);
                     if (existingUsuarios != null) {
                         for (Usuario usuario : existingUsuarios) {
->>>>>>> 98a28316255e1ea3d921bb76fc0c6bf423fc8062
                             System.out.println("Usuario registrados:\n" + usuario);
                         }
                     } else {
@@ -75,11 +61,7 @@ public class Main {
         int edad = scanner.nextInt();
         scanner.nextLine();
 
-<<<<<<< HEAD
-        Usuarios usuario = new Usuarios(nombre, cedula, edad);
-=======
         Usuario usuario = new Usuario(nombre, cedula, edad);
->>>>>>> 98a28316255e1ea3d921bb76fc0c6bf423fc8062
         usuarios.add(usuario);
 
         System.out.println("Usuario registrado");
@@ -208,11 +190,7 @@ public class Main {
             System.out.println("Error. Las rutinas del gimnasio estan habilitadas para personas mayores de 12 años.");
         }
     }
-<<<<<<< HEAD
-    private static void serealizeUsuarios(List<Usuarios> usuarios, String filename) {
-=======
     private static void serealizeUsuarios(List<Usuario> usuarios, String filename) {
->>>>>>> 98a28316255e1ea3d921bb76fc0c6bf423fc8062
         try (FileOutputStream fileOut = new FileOutputStream(filename);
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(usuarios);
@@ -222,28 +200,15 @@ public class Main {
         }
     }
 
-<<<<<<< HEAD
-    private static List<Usuarios> deserealizeUsuarios(String filename) {
-        List<Usuarios> userList = null;
-        try (FileInputStream fileIn = new FileInputStream(filename);
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
-            userList = (List<Usuarios>) in.readObject();
-=======
     private static List<Usuario> deserealizeUsuarios(String filename) {
         List<Usuario> userList = null;
         try (FileInputStream fileIn = new FileInputStream(filename);
              ObjectInputStream in = new ObjectInputStream(fileIn)) {
             userList = (List<Usuario>) in.readObject();
->>>>>>> 98a28316255e1ea3d921bb76fc0c6bf423fc8062
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return userList;
     }
 
-<<<<<<< HEAD
 }
-=======
-}
-
->>>>>>> 98a28316255e1ea3d921bb76fc0c6bf423fc8062
