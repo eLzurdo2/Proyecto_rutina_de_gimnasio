@@ -131,6 +131,3 @@ public class Rutina_Gimnasio {
         scanner.close();
     }
 }
-
-
-
