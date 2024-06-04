@@ -33,7 +33,7 @@ public class Main {
                     if (existingUsuarios != null) {
                         usuarios.addAll(existingUsuarios);
                         for (Usuario usuario : existingUsuarios) {
-                            System.out.println("Usuario registrados:\n" + usuario);
+                             System.out.println("Nombre: " + usuario.getNombre() + ", Cédula: " + usuario.getCedula() + ", Edad: " + usuario.getEdad());
                         }
                     } else {
                         System.out.println("No se pudo deserializar la lista de usuarios. Verifique que el archivo existe.");
