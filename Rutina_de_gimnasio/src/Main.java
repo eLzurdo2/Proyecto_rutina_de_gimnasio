@@ -18,7 +18,8 @@ public class Main {
             System.out.println("2. Guardar usuarios");
             System.out.println("3. Ver usuarios registrados");
             System.out.println("4. Acceder a rutinas de gimnasio (debes ya estar registrado en el sistema para acceder a estas opciones)");
-            System.out.println("5. Salir");
+            System.out.println("5. Borrar usuario");
+            System.out.println("6. Salir");
             int opcion = scanner.nextInt();
             scanner.nextLine();
 
@@ -45,6 +46,9 @@ public class Main {
                     accederRutinasGimnasio(scanner);
                     break;
                 case 5:
+                    borrarUsuario(scanner);
+                    break;
+                case 6:
                     System.out.println("Saliendo del programa...");
                     return;
                 default:
@@ -68,15 +72,40 @@ public class Main {
         usuarios.add(usuario);
 
         System.out.println("Usuario registrado");
-        //RutinasDeEjercicio(usuario.getEdad(), scanner);
 
     }
     public static void accederRutinasGimnasio(Scanner scanner) {
-
         System.out.println("Ingrese su cédula:");
         String cedula = scanner.nextLine();
+
+        Usuario usuario = buscarUsuarioPorCedula(cedula);
+        if (usuario != null) {
+            RutinasDeEjercicio(usuario.getEdad(), scanner);
+        } else {
+            System.out.println("Usuario no encontrado.");
+        }
     }
 
+    public static Usuario buscarUsuarioPorCedula(String cedula) {
+        for (Usuario usuario : usuarios) {
+            if (usuario.getCedula().equals(cedula)) {
+                return usuario;
+            }
+        }
+        return null;
+    }
+    public static void borrarUsuario(Scanner scanner) {
+        System.out.println("Ingrese la cédula del usuario a borrar:");
+        String cedula = scanner.nextLine();
+        Usuario usuario = buscarUsuarioPorCedula(cedula);
+
+        if (usuario != null) {
+            usuarios.remove(usuario);
+            System.out.println("Usuario con cédula " + cedula + " ha sido borrado.");
+        } else {
+            System.out.println("No se encontró ningún usuario con esa cédula.");
+        }
+    }
 
 
 
@@ -149,9 +178,9 @@ public class Main {
             }
         } else if (edad >= 12) {
             System.out.println("Ingrese el día de la semana:");
-            String day = scanner.nextLine().toLowerCase();
+            String dia = scanner.nextLine().toLowerCase();
 
-            switch (day) {
+            switch (dia) {
                 case "lunes":
                     System.out.println("Rutina del Lunes:");
                     System.out.println("1. Pecho y Tríceps");
@@ -168,7 +197,7 @@ public class Main {
                     System.out.println("4. Curl de bíceps con mancuernas - 4 sets de 12 repeticiones");
                     System.out.println("5. Peso muerto - 3 sets de 10 repeticiones");
                     break;
-                case "miércoles":
+                case "miercoles":
                     System.out.println("Rutina del Miércoles:");
                     System.out.println("1. Piernas");
                     System.out.println("2. Sentadillas - 4 sets de 12 repeticiones");
