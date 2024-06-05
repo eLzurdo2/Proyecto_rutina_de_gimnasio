@@ -13,11 +13,12 @@ public class Main {
         String filename = "usuarios.ser";
 
         while (true) {
-            System.out.println("Seleccione una opción:");
+            System.out.println("\nSeleccione una opción:");
             System.out.println("1. Registrar usuario");
-            System.out.println("2. Guardar usuario");
+            System.out.println("2. Guardar usuarios");
             System.out.println("3. Ver usuarios registrados");
-            System.out.println("4. Salir");
+            System.out.println("4. Acceder a rutinas de gimnasio (debes ya estar registrado en el sistema para acceder a estas opciones)");
+            System.out.println("5. Salir");
             int opcion = scanner.nextInt();
             scanner.nextLine();
 
@@ -31,22 +32,23 @@ public class Main {
                 case 3:
                     List<Usuario> existingUsuarios = deserealizeUsuarios(filename);
                     if (existingUsuarios != null) {
+                        usuarios.clear();
                         usuarios.addAll(existingUsuarios);
                         for (Usuario usuario : existingUsuarios) {
-                             System.out.println("Nombre: " + usuario.getNombre() + ", Cédula: " + usuario.getCedula() + ", Edad: " + usuario.getEdad());
+                            System.out.println("Nombre: " + usuario.getNombre() + ", Cédula: " + usuario.getCedula() + ", Edad: " + usuario.getEdad());
                         }
                     } else {
                         System.out.println("No se pudo deserializar la lista de usuarios. Verifique que el archivo existe.");
-
                     }
                     break;
                 case 4:
+                    accederRutinasGimnasio(scanner);
+                    break;
+                case 5:
                     System.out.println("Saliendo del programa...");
                     return;
-
                 default:
                     System.out.println("Opción no válida. Intente de nuevo.");
-
             }
         }
     }
@@ -66,12 +68,19 @@ public class Main {
         usuarios.add(usuario);
 
         System.out.println("Usuario registrado");
+        //RutinasDeEjercicio(usuario.getEdad(), scanner);
 
-        RutinasDeEjercicio(edad, scanner);
+    }
+    public static void accederRutinasGimnasio(Scanner scanner) {
+
+        System.out.println("Ingrese su cédula:");
+        String cedula = scanner.nextLine();
     }
 
 
-    public static void RutinasDeEjercicio(int edad, Scanner scanner) {
+
+
+        public static void RutinasDeEjercicio(int edad, Scanner scanner) {
         if (edad >= 65) {
             System.out.println("Ingrese el día de la semana:");
             String dia = scanner.nextLine().toLowerCase();
