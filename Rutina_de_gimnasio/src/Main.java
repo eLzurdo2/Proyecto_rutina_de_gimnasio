@@ -4,6 +4,7 @@ import java.util.Scanner;
 import com.rutina_gym.usuarios.Usuario;
 import java.io.*;
 
+
 public class Main {
     public static List<Usuario> usuarios = new ArrayList<>();
 
@@ -46,7 +47,7 @@ public class Main {
                     accederRutinasGimnasio(scanner);
                     break;
                 case 5:
-                    borrarUsuario(scanner);
+                    borrarUsuario(scanner, filename);
                     break;
                 case 6:
                     System.out.println("Saliendo del programa...");
@@ -94,7 +95,7 @@ public class Main {
         }
         return null;
     }
-    public static void borrarUsuario(Scanner scanner) {
+    public static void borrarUsuario(Scanner scanner, String filename) {
         System.out.println("Ingrese la cédula del usuario a borrar:");
         String cedula = scanner.nextLine();
         Usuario usuario = buscarUsuarioPorCedula(cedula);
@@ -102,6 +103,7 @@ public class Main {
         if (usuario != null) {
             usuarios.remove(usuario);
             System.out.println("Usuario con cédula " + cedula + " ha sido borrado.");
+            serealizeUsuarios(usuarios, filename);
         } else {
             System.out.println("No se encontró ningún usuario con esa cédula.");
         }
